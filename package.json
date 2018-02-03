@@ -1,0 +1,53 @@
+{
+  "name": "iscohh.live",
+  "version": "1.0.0",
+  "description": "Because if he's streaming, I've got to go watch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --omit-source-map-url --source-map dist/css/main.css.map --output-style compressed --output dist/css/ src/scss/main.scss",
+    "autoprefixer": "postcss -u autoprefixer -r dist/css/**/*.css",
+    "lint": "eslint src/js",
+    "uglifyjs": "uglifyjs dist/js/app.js -cmo dist/js/app.min.js",
+    "uglifyjs-folder": "uglifyjs-folder src/js/ -yo dist/js/app.min.js",
+    "imagemin": "imagemin src/images/**/* -o dist/images",
+    "serve": "browser-sync start --server dist --files dist",
+    "build:cleanup": "rimraf dist/*",
+    "build:css": "npm run scss && npm run autoprefixer",
+    "build:js": "node build.js && npm run uglifyjs",
+    "build:images": "npm run imagemin",
+    "build:html": "html-minifier --input-dir ./src --output-dir ./dist --collapse-whitespace --remove-comments --file-ext html",
+    "build": "npm run build:cleanup && npm run build:html && npm run build:css && npm run build:js && npm run build:images",
+    "watch:css": "onchange \"src/scss/**/*\" -- npm run build:css",
+    "watch:js": "onchange \"src/js/**/*\" -- npm run build:js",
+    "watch:images": "onchange \"src/images/**/*\" -- npm run build:images",
+    "watch:html": "onchange \"src/*.html\" -- npm run build:html",
+    "watch": "npm-run-all -p serve watch:html watch:css watch:js watch:images"
+  },
+  "keywords": [
+    "cohhcarnage",
+    "iscohh.live",
+    "iscohhonline.com",
+    "twitch.tv"
+  ],
+  "author": "Sébastien Vercammen",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "devDependencies": {
+    "autoprefixer": "^7.2.5",
+    "browser-sync": "^2.23.5",
+    "concat": "^1.0.3",
+    "eslint": "^4.15.0",
+    "fs-extra": "^5.0.0",
+    "html-minifier": "^3.5.8",
+    "imagemin-cli": "^3.0.0",
+    "mathsass": "^0.10.1",
+    "modularscale-sass": "^3.0.4",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "onchange": "^3.3.0",
+    "parallelshell": "^3.0.2",
+    "postcss-cli": "^4.1.1",
+    "rimraf": "^2.6.2",
+    "uglify-es": "^3.3.7"
+  }
+}

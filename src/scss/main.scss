@@ -1,0 +1,243 @@
+@charset "utf-8";
+
+/* Modular scale. */
+@import '../../node_modules/mathsass/dist/math';
+@import '../../node_modules/modularscale-sass/libsass/scss/main.scss';
+
+$modularscale: (
+    base: 1em,
+    ratio: $golden
+);
+
+$breakpoints: (
+    small: 600px,
+    large: 1200px
+);
+
+/* Fonts. */
+// Interesting fonts: Archivo Narrow, Playfair Display, Source Sans Pro, Open Sans.
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro');
+
+/* Custom libs. */
+@import 'spinners/pacman.scss';
+
+/* Vars. */
+$title-font: 'Playfair Display', sans-serif;
+$text-font: 'Source Sans Pro', sans-serif;
+
+// Colors.
+$color-dark: #222;
+$color-lightgray: #aaa;
+$color-darkergray: #777;
+$color-darkestgray: #4e4e4e;
+$color-blue: #3498db;
+$color-clouds: #ecf0f1;
+$color-lightest: #ccc;
+$color-darkred: #7b131d;
+$color-red: #a30006;
+$color-green: #1e7b13;
+
+// Functional names: <a> tags.
+$color-links: #48b;
+$color-links-visited: #369;
+$color-links-hover: #5ad;
+
+/* Standards. */
+
+// Links.
+a {
+    color: $color-links;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-links-hover;
+        text-decoration: underline;
+    }
+
+    &:visited {
+        color: $color-links-visited;
+    }
+}
+
+// Titles.
+h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font;
+}
+
+h1 {
+    font-size: ms(3);
+}
+
+// note.js library.
+h2.note--title {
+    font-family: inherit;
+}
+
+// Basics.
+body {
+    // Set text defaults.
+    background-color: $color-dark;
+    font-family: $text-font;
+    font-size: ms(0);
+    color: $color-darkergray;
+    text-rendering: optimizeLegibility;
+
+    main {
+        // Don't stick.
+        padding-top: 50px;
+
+        // Some standards.
+        header {
+            width: 100%;
+            text-align: center;
+
+            h1 {
+                margin-top: 0;
+                margin-bottom: 15px;
+                color: $color-red;
+
+                a {
+                    color: $color-red;
+
+                    &:visited {
+                        color: $color-red;
+                    }
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        display: block;
+        color: #FFF;
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: ms(1);
+        text-align: center;
+        margin-top: ms(1);
+
+        .copyright {
+            vertical-align: top;
+
+            a {
+                color: #7fc7af;
+            }
+        }
+    }
+    
+    // Give a decent position to our warning.
+    noscript {
+        position: absolute;
+        display: inline-block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    // Spinner.
+    section#loading {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $color-dark;
+        opacity: 1;
+        z-index: 1;
+        transition: opacity 0.5s ease-in-out;
+        
+        > div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+/* Homepage. */
+body#home {
+    main {
+        // Hide the main content by default. Only shown if JS is enabled.
+        display: none;
+    }
+
+    section#promo {
+        max-width: 850px;
+        margin: ms(-1) auto;
+        margin-bottom: ms(0);
+        text-align: center;
+        font-size: ms(1);
+        line-height: 1.4;
+
+        > p {
+            margin: 0;
+            margin-top: ms(-1);
+
+            &.sadtimes {
+                color: $color-darkred;
+            }
+
+            &.happytimes {
+                color: $color-green;
+            }
+
+            &.schedule {
+                font-size: ms(-1);
+            }
+        }
+    }
+
+    nav#cohhlinks {
+        max-width: 850px;
+        margin: 0 auto;
+        margin-bottom: ms(0);
+        text-align: center;
+        font-size: ms(0);
+        line-height: 1.5;
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            text-align: center;
+
+            li {
+                grid-column: span 1;
+                margin-top: 8px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+
+            /* Responsiveness. */
+            @media only screen and (min-width: 550px) {
+                grid-template-columns: repeat(4, 1fr);
+
+                li {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+
+    section#content {
+        font-size: ms(0);
+        max-width: 1350px;
+        margin: 0 auto;
+    }
+}
+
+body#about {
+    main {
+        section#content {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+    }
+}
